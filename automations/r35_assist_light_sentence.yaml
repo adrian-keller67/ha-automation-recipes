@@ -1,0 +1,15 @@
+id: "r35_assist_light_sentence"
+alias: "R35 Assist sentence toggle living room"
+description: "Custom conversation sentence toggles living room light."
+mode: single
+triggers:
+  - trigger: conversation
+    command:
+      - "Toggle living room light"
+      - "Toggle the living room light"
+conditions: []
+actions:
+  - action: light.toggle
+    target:
+      entity_id: light.living_room
+  - set_conversation_response: "Toggled the living room light."

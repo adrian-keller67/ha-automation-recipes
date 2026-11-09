@@ -1,0 +1,21 @@
+id: "r32_auto_lock_door"
+alias: "R32 Auto-lock door when away"
+description: "Lock front door a few minutes after it closes while house is empty."
+mode: restart
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.front_door
+    to: "off"
+    for:
+      minutes: 3
+conditions:
+  - condition: state
+    entity_id: zone.home
+    state: "0"
+  - condition: state
+    entity_id: lock.front_door
+    state: "unlocked"
+actions:
+  - action: lock.lock
+    target:
+      entity_id: lock.front_door

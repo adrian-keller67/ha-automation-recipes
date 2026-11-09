@@ -1,0 +1,38 @@
+id: "r25_ev_charge_with_sun"
+alias: "R25 EV charge only with surplus"
+description: "Enable charger switch when export high; disable when export low."
+mode: queued
+max: 5
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.grid_export_power
+    above: 1500
+    for:
+      minutes: 3
+    id: surplus
+  - trigger: numeric_state
+    entity_id: sensor.grid_export_power
+    below: 500
+    for:
+      minutes: 3
+    id: low
+conditions:
+  - condition: state
+    entity_id: input_boolean.auto_ev_charge
+    state: "on"
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: surplus
+        sequence:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.ev_charger_enable
+      - conditions:
+          - condition: trigger
+            id: low
+        sequence:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.ev_charger_enable

@@ -1,0 +1,23 @@
+id: "r18_summer_vent_hint"
+alias: "R18 Summer vent hint"
+description: "Notify when indoor is warmer than outdoor in the evening."
+mode: single
+triggers:
+  - trigger: time
+    at: "20:00:00"
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.living_room_temperature
+    above: 24
+  - condition: template
+    value_template: >-
+      {{ states('sensor.living_room_temperature')|float(0) >
+         states('sensor.outdoor_temperature')|float(99) }}
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Ventilation"
+      message: >-
+        Indoors is {{ states('sensor.living_room_temperature') }}°C,
+        outdoors {{ states('sensor.outdoor_temperature') }}°C — open windows if safe.
+      notification_id: summer_vent

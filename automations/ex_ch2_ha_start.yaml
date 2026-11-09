@@ -1,0 +1,18 @@
+# Example Ch2: Home Assistant start trigger — verify stack after reboot
+# Docs: Home Assistant trigger
+id: "ex_ch2_ha_start"
+alias: "Example: Notify after Home Assistant start"
+description: "Fires when Home Assistant finishes starting."
+mode: single
+triggers:
+  - trigger: homeassistant
+    event: start
+conditions: []
+actions:
+  - delay:
+      seconds: 30
+  - action: persistent_notification.create
+    data:
+      title: "Home Assistant"
+      message: "Startup complete. Check Zigbee stick and critical automations."
+      notification_id: ha_startup

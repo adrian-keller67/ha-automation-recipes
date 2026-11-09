@@ -1,0 +1,15 @@
+id: "r24_standby_killer"
+alias: "R24 Standby killer at night"
+description: "Turn off entertainment switch late at night if TV is off."
+mode: single
+triggers:
+  - trigger: time
+    at: "01:00:00"
+conditions:
+  - condition: state
+    entity_id: media_player.living_room_tv
+    state: "off"
+actions:
+  - action: switch.turn_off
+    target:
+      entity_id: switch.entertainment_power

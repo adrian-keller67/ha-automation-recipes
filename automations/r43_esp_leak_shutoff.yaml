@@ -1,0 +1,18 @@
+id: "r43_esp_leak_shutoff"
+alias: "R43 ESPHome leak shutoff"
+description: "On leak sensor, close valve switch and notify."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.esphome_utility_leak
+    to: "on"
+conditions: []
+actions:
+  - action: switch.turn_off
+    target:
+      entity_id: switch.main_water_valve
+  - action: persistent_notification.create
+    data:
+      title: "LEAK"
+      message: "Leak detected — main water valve switch turned off."
+      notification_id: leak_shutoff

@@ -1,0 +1,18 @@
+id: "r42_esp_button_scene"
+alias: "R42 ESPHome button scene"
+description: "ESPHome binary button press activates evening lights."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.esphome_desk_button
+    from: "off"
+    to: "on"
+conditions: []
+actions:
+  - action: light.turn_on
+    target:
+      entity_id:
+        - light.office
+        - light.desk_lamp
+    data:
+      brightness_pct: 70

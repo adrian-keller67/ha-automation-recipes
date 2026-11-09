@@ -1,0 +1,23 @@
+id: "r46_battery_report"
+alias: "R46 Low battery report"
+description: "Daily template list of battery sensors below 30%."
+mode: single
+triggers:
+  - trigger: time
+    at: "09:00:00"
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Battery report"
+      message: >-
+        Low batteries:
+        {% set ns = namespace(items=[]) %}
+        {% for s in states.sensor
+           if s.entity_id.endswith('_battery')
+           and s.state not in ['unknown','unavailable']
+           and s.state|float(100) < 30 %}
+          {% set ns.items = ns.items + [s.name ~ ': ' ~ s.state ~ '%'] %}
+        {% endfor %}
+        {{ ns.items | join(', ') if ns.items else 'None below 30%.' }}
+      notification_id: battery_report

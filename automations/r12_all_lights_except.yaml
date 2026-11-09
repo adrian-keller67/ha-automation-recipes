@@ -1,0 +1,17 @@
+id: "r12_all_lights_except"
+alias: "R12 Ground floor lights except kitchen"
+description: "Turn on ground-floor lights excluding kitchen area (Home Assistant 2026.11 exclude)."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: input_boolean.evening_lights
+    to: "on"
+conditions: []
+actions:
+  - action: light.turn_on
+    target:
+      floor_id: ground_floor
+      exclude:
+        area_id: kitchen
+    data:
+      brightness_pct: 50

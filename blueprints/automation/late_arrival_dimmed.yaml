@@ -1,0 +1,71 @@
+blueprint:
+  name: Late arrival dimmed lights
+  description: >
+    Turn on selected lights at low brightness when a person enters the home
+    zone during a night window. Companion blueprint for recipe R04.
+  domain: automation
+  author: Adrian Keller
+  homeassistant:
+    min_version: 2024.10.0
+  input:
+    person_entity:
+      name: Person
+      description: Person entity that should trigger on arriving home.
+      selector:
+        entity:
+          filter:
+            domain: person
+    light_target:
+      name: Lights
+      selector:
+        target:
+          entity:
+            domain: light
+    guest_mode_entity:
+      name: Guest mode helper
+      description: When this input_boolean is on, the automation does nothing.
+      default: input_boolean.guest_mode
+      selector:
+        entity:
+          filter:
+            domain: input_boolean
+    night_after:
+      name: Night window starts
+      default: "22:00:00"
+      selector:
+        time:
+    night_before:
+      name: Night window ends
+      default: "06:00:00"
+      selector:
+        time:
+    brightness:
+      name: Brightness percent
+      default: 15
+      selector:
+        number:
+          min: 1
+          max: 100
+          unit_of_measurement: "%"
+
+mode: single
+
+triggers:
+  - trigger: zone
+    entity_id: !input person_entity
+    zone: zone.home
+    event: enter
+
+conditions:
+  - condition: state
+    entity_id: !input guest_mode_entity
+    state: "off"
+  - condition: time
+    after: !input night_after
+    before: !input night_before
+
+actions:
+  - action: light.turn_on
+    target: !input light_target
+    data:
+      brightness_pct: !input brightness

@@ -1,0 +1,24 @@
+id: "r10_night_hallway_glow"
+alias: "R10 Night hallway glow"
+description: "Low brightness hallway light on motion between 23:00 and 06:00."
+mode: restart
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.hallway_motion
+    from: "off"
+    to: "on"
+conditions:
+  - condition: time
+    after: "23:00:00"
+    before: "06:00:00"
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.hallway
+    data:
+      brightness_pct: 10
+  - delay:
+      minutes: 2
+  - action: light.turn_off
+    target:
+      entity_id: light.hallway

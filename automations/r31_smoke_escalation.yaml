@@ -1,0 +1,23 @@
+id: "r31_smoke_escalation"
+alias: "R31 Smoke escalation"
+description: "On smoke detected: notify and turn on lights for exit path."
+mode: parallel
+max: 3
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.hallway_smoke
+    to: "on"
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "SMOKE"
+      message: "Smoke sensor hallway is on. Evacuate and call emergency services if needed."
+      notification_id: smoke_alert
+  - action: light.turn_on
+    target:
+      entity_id:
+        - light.hallway
+        - light.living_room
+    data:
+      brightness_pct: 100

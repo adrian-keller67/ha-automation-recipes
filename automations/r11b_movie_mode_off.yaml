@@ -1,0 +1,18 @@
+id: "r11b_movie_mode_off"
+alias: "R11b Movie mode off restore"
+description: "Restore living room lighting when movie mode turns off."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: input_boolean.movie_mode
+    to: "off"
+conditions: []
+actions:
+  - action: light.turn_off
+    target:
+      entity_id: light.tv_bias
+  - action: light.turn_on
+    target:
+      entity_id: light.living_room
+    data:
+      brightness_pct: 60

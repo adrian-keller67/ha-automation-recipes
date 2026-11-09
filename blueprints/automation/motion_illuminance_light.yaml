@@ -1,0 +1,70 @@
+blueprint:
+  name: Motion light with illuminance gate
+  description: Turn on a light on motion only when illuminance is below a threshold; turn off after quiet.
+  domain: automation
+  author: Adrian Keller
+  homeassistant:
+    min_version: 2024.10.0
+  input:
+    motion_entity:
+      name: Motion sensor
+      selector:
+        entity:
+          filter:
+            domain: binary_sensor
+            device_class: motion
+    illuminance_entity:
+      name: Illuminance sensor
+      selector:
+        entity:
+          filter:
+            domain: sensor
+            device_class: illuminance
+    light_target:
+      name: Light
+      selector:
+        target:
+          entity:
+            domain: light
+    lux_below:
+      name: Lux threshold
+      default: 40
+      selector:
+        number:
+          min: 1
+          max: 500
+          unit_of_measurement: lx
+    off_wait:
+      name: Minutes after motion clears
+      default: 3
+      selector:
+        number:
+          min: 1
+          max: 60
+          unit_of_measurement: minutes
+
+mode: restart
+
+triggers:
+  - trigger: state
+    entity_id: !input motion_entity
+    from: "off"
+    to: "on"
+
+conditions:
+  - condition: numeric_state
+    entity_id: !input illuminance_entity
+    below: !input lux_below
+
+actions:
+  - action: light.turn_on
+    target: !input light_target
+  - wait_for_trigger:
+      - trigger: state
+        entity_id: !input motion_entity
+        from: "on"
+        to: "off"
+  - delay:
+      minutes: !input off_wait
+  - action: light.turn_off
+    target: !input light_target

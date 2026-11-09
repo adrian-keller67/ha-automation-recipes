@@ -1,0 +1,24 @@
+# R02 Everything off when leaving / Alles aus beim Weggehen
+id: "r02_everything_off_when_leaving"
+alias: "R02 Everything off when leaving"
+description: >
+  When zone.home drops to 0 people, turn off lights and selected switches.
+  Respects guest mode.
+mode: single
+triggers:
+  - trigger: state
+    entity_id: zone.home
+    to: "0"
+conditions:
+  - condition: state
+    entity_id: input_boolean.guest_mode
+    state: "off"
+actions:
+  - action: light.turn_off
+    target:
+      entity_id: all
+  - action: switch.turn_off
+    target:
+      entity_id:
+        - switch.living_room_fan
+        - switch.office_heater

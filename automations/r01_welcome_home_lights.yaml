@@ -1,0 +1,33 @@
+# R01 Welcome home lights / Willkommen zu Hause
+id: "r01_welcome_home_lights"
+alias: "R01 Welcome home lights"
+description: >
+  When a person arrives home after sunset, turn on living room lights.
+  Skip if guest mode is on.
+mode: single
+triggers:
+  - trigger: zone
+    entity_id: person.alex
+    zone: zone.home
+    event: enter
+    id: alex_home
+  - trigger: zone
+    entity_id: person.sam
+    zone: zone.home
+    event: enter
+    id: sam_home
+conditions:
+  - condition: state
+    entity_id: input_boolean.guest_mode
+    state: "off"
+  - condition: state
+    entity_id: sun.sun
+    state: "below_horizon"
+actions:
+  - action: light.turn_on
+    target:
+      entity_id:
+        - light.living_room
+        - light.hallway
+    data:
+      brightness_pct: 60

@@ -1,0 +1,32 @@
+id: "r36_tablet_night_mode"
+alias: "R36 Tablet night mode"
+description: "Dim wall-tablet backlight lamp at night; brighter in the morning."
+mode: single
+triggers:
+  - trigger: time
+    at: "22:30:00"
+    id: night
+  - trigger: time
+    at: "07:00:00"
+    id: morning
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: night
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.wall_tablet_backlight
+            data:
+              brightness_pct: 5
+      - conditions:
+          - condition: trigger
+            id: morning
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.wall_tablet_backlight
+            data:
+              brightness_pct: 40

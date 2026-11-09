@@ -1,0 +1,21 @@
+# Example Ch1: sunset + someone home → living room light
+# Home Assistant 2026.11 — modern triggers:/conditions:/actions: syntax
+id: "ex_ch1_sunset_light"
+alias: "Example: Living room at sunset if home"
+description: "Teaching example — replace entity ids with yours."
+mode: single
+triggers:
+  - trigger: sun
+    event: sunset
+    offset: "-00:30:00"
+    id: sunset_soon
+conditions:
+  - condition: numeric_state
+    entity_id: zone.home
+    above: 0
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.living_room
+    data:
+      brightness_pct: 70

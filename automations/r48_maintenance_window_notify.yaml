@@ -1,0 +1,19 @@
+id: "r48_maintenance_window_notify"
+alias: "R48 Maintenance window notify"
+description: >
+  At 04:00, if an update is pending, notify — does NOT auto-restart.
+  Restart remains a manual decision after backup.
+mode: single
+triggers:
+  - trigger: time
+    at: "04:00:00"
+conditions:
+  - condition: state
+    entity_id: update.home_assistant_core_update
+    state: "on"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Maintenance window"
+      message: "Update pending. After backup, install from Settings → System → Updates if you choose."
+      notification_id: maintenance_window

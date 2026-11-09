@@ -1,0 +1,10 @@
+# Optional helpers for recipes R01–R06
+# Add via UI (Settings → Devices & services → Helpers) or packages.
+
+input_boolean:
+  guest_mode:
+    name: Guest mode
+    icon: mdi:account-multiple
+  house_away:
+    name: House away
+    icon: mdi:home-export-outline

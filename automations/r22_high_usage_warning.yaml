@@ -1,0 +1,17 @@
+id: "r22_high_usage_warning"
+alias: "R22 High power usage warning"
+description: "Notify if whole-home power stays above threshold."
+mode: single
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.house_power
+    above: 4000
+    for:
+      minutes: 10
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "High power"
+      message: "House power has been above 4 kW for 10 minutes ({{ states('sensor.house_power') }} W)."
+      notification_id: high_power

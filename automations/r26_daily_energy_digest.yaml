@@ -1,0 +1,16 @@
+id: "r26_daily_energy_digest"
+alias: "R26 Daily energy digest"
+description: "Morning notification with yesterday-style energy reading from a sensor."
+mode: single
+triggers:
+  - trigger: time
+    at: "07:30:00"
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Energy digest"
+      message: >-
+        House energy sensor reads {{ states('sensor.house_energy_daily') }}
+        {{ state_attr('sensor.house_energy_daily', 'unit_of_measurement') }}.
+      notification_id: energy_digest

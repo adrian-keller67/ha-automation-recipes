@@ -1,0 +1,25 @@
+id: "r40_anti_flapping_lights"
+alias: "R40 Anti-flapping motion light"
+description: "Motion light with restart mode and minimum on-time to reduce flapping."
+mode: restart
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.kitchen_motion
+    from: "off"
+    to: "on"
+conditions: []
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.kitchen
+  - delay:
+      seconds: 90
+  - wait_for_trigger:
+      - trigger: state
+        entity_id: binary_sensor.kitchen_motion
+        to: "off"
+        for:
+          minutes: 2
+  - action: light.turn_off
+    target:
+      entity_id: light.kitchen

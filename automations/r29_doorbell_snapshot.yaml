@@ -1,0 +1,21 @@
+id: "r29_doorbell_snapshot"
+alias: "R29 Doorbell snapshot"
+description: "Take a camera snapshot and notify when doorbell rings."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.front_doorbell
+    from: "off"
+    to: "on"
+conditions: []
+actions:
+  - action: camera.snapshot
+    target:
+      entity_id: camera.front_door
+    data:
+      filename: /media/snapshots/doorbell_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg
+  - action: persistent_notification.create
+    data:
+      title: "Doorbell"
+      message: "Someone rang the doorbell. Snapshot saved under /media/snapshots/."
+      notification_id: doorbell

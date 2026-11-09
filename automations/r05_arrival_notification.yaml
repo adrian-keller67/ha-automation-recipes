@@ -1,0 +1,24 @@
+# R05 Arrival notification / Ankunfts-Benachrichtigung
+id: "r05_arrival_notification"
+alias: "R05 Arrival notification"
+description: >
+  Persistent notification when a person arrives. Replace with notify.mobile_app_...
+  for phone push (mobile_app integration).
+mode: queued
+max: 5
+triggers:
+  - trigger: state
+    entity_id: person.alex
+    to: "home"
+    id: alex
+  - trigger: state
+    entity_id: person.sam
+    to: "home"
+    id: sam
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Arrival"
+      message: "{{ trigger.to_state.attributes.friendly_name | default(trigger.entity_id) }} is home."
+      notification_id: "arrival_{{ trigger.id }}"

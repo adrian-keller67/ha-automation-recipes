@@ -1,0 +1,17 @@
+id: "r45_backup_reminder"
+alias: "R45 Weekly backup reminder"
+description: "Remind to download a Home Assistant backup every Sunday morning."
+mode: single
+triggers:
+  - trigger: time
+    at: "10:00:00"
+conditions:
+  - condition: time
+    weekday:
+      - sun
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Backup reminder"
+      message: "Create and download a Home Assistant backup today."
+      notification_id: backup_reminder

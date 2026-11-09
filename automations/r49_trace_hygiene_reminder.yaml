@@ -1,0 +1,16 @@
+id: "r49_trace_hygiene_reminder"
+alias: "R49 Monthly trace hygiene reminder"
+description: "Monthly reminder to review automation traces and stored_traces settings."
+mode: single
+triggers:
+  - trigger: time
+    at: "11:00:00"
+conditions:
+  - condition: template
+    value_template: "{{ now().day == 1 }}"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Traces"
+      message: "Review failing automations in Traces. For YAML automations, stored_traces defaults to 5."
+      notification_id: trace_hygiene

@@ -1,0 +1,25 @@
+input_boolean:
+  guest_mode:
+    name: Guest mode
+    icon: mdi:account-multiple
+  house_away:
+    name: House away
+    icon: mdi:home-export-outline
+  movie_mode:
+    name: Movie mode
+    icon: mdi:movie-open
+  heat_boost:
+    name: Heat boost
+    icon: mdi:thermometer-chevron-up
+  auto_dishwasher:
+    name: Auto dishwasher
+    icon: mdi:dishwasher
+  auto_ev_charge:
+    name: Auto EV charge
+    icon: mdi:ev-station
+  evening_lights:
+    name: Evening lights
+    icon: mdi:lamps
+  good_night:
+    name: Good night
+    icon: mdi:weather-night

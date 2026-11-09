@@ -1,0 +1,22 @@
+id: "r30_quiet_hours_critical_only"
+alias: "R30 Quiet hours — critical path example"
+description: >
+  Example wrapper: only create a non-critical notice outside quiet hours.
+  Pair critical alerts (smoke) with separate automations that ignore quiet hours.
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.mailbox
+    to: "on"
+conditions:
+  - condition: not
+    conditions:
+      - condition: time
+        after: "22:00:00"
+        before: "07:00:00"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Mailbox"
+      message: "Mailbox was opened."
+      notification_id: mailbox

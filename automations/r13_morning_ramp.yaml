@@ -1,0 +1,38 @@
+id: "r13_morning_ramp"
+alias: "R13 Weekday morning light ramp"
+description: "On weekdays at 06:30, gently turn on bedroom light if someone is home."
+mode: single
+triggers:
+  - trigger: time
+    at: "06:30:00"
+conditions:
+  - condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  - condition: numeric_state
+    entity_id: zone.home
+    above: 0
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.bedroom
+    data:
+      brightness_pct: 20
+  - delay:
+      minutes: 5
+  - action: light.turn_on
+    target:
+      entity_id: light.bedroom
+    data:
+      brightness_pct: 50
+  - delay:
+      minutes: 5
+  - action: light.turn_on
+    target:
+      entity_id: light.bedroom
+    data:
+      brightness_pct: 80

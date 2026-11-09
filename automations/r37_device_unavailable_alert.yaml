@@ -1,0 +1,17 @@
+id: "r37_device_unavailable_alert"
+alias: "R37 Device unavailable alert"
+description: "Notify when a critical entity stays unavailable."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: sensor.house_power
+    to: unavailable
+    for:
+      minutes: 15
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Entity unavailable"
+      message: "sensor.house_power has been unavailable for 15 minutes."
+      notification_id: unavailable_house_power

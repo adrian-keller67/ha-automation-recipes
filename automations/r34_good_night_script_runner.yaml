@@ -1,0 +1,16 @@
+id: "r34_good_night_button"
+alias: "R34 Good night from helper"
+description: "When good-night helper turns on, run the good-night script and clear helper."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: input_boolean.good_night
+    to: "on"
+conditions: []
+actions:
+  - action: script.turn_on
+    target:
+      entity_id: script.good_night
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.good_night

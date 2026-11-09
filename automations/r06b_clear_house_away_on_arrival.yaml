@@ -1,0 +1,16 @@
+# Companion to R06: clear house_away when someone returns
+id: "r06b_clear_house_away"
+alias: "R06b Clear house away on arrival"
+description: "Turns off input_boolean.house_away when any tracked person returns home."
+mode: single
+triggers:
+  - trigger: state
+    entity_id:
+      - person.alex
+      - person.sam
+    to: "home"
+conditions: []
+actions:
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.house_away

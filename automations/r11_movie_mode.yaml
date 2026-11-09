@@ -1,0 +1,23 @@
+id: "r11_movie_mode"
+alias: "R11 Movie mode"
+description: "When movie mode helper turns on, dim main lights and enable bias light."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: input_boolean.movie_mode
+    to: "on"
+conditions: []
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.living_room
+    data:
+      brightness_pct: 15
+  - action: light.turn_on
+    target:
+      entity_id: light.tv_bias
+    data:
+      brightness_pct: 35
+  - action: light.turn_off
+    target:
+      entity_id: light.living_room_ceiling_spots

@@ -1,0 +1,18 @@
+id: "r39_watchdog_stale_sensor"
+alias: "R39 Watchdog stale sensor"
+description: >
+  Practical reliability pattern: if a temperature sensor does not change for hours,
+  notify. Complements traces; does not invent undocumented automation-fail events.
+mode: single
+triggers:
+  - trigger: state
+    entity_id: sensor.living_room_temperature
+    for:
+      hours: 6
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Stale sensor"
+      message: "Living room temperature has not changed for 6 hours — check the device."
+      notification_id: stale_temp

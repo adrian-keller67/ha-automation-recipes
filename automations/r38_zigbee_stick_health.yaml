@@ -1,0 +1,17 @@
+id: "r38_zigbee_stick_health"
+alias: "R38 Zigbee coordinator check"
+description: "Periodic check that Zigbee coordinator entity is not unavailable."
+mode: single
+triggers:
+  - trigger: time_pattern
+    hours: "/6"
+conditions:
+  - condition: state
+    entity_id: binary_sensor.zigbee_coordinator_status
+    state: "off"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Zigbee"
+      message: "Zigbee coordinator status is off/unhealthy — check the stick and USB power."
+      notification_id: zigbee_health

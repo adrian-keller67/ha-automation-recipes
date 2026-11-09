@@ -1,0 +1,18 @@
+id: "r08_lights_off_after_quiet"
+alias: "R08 Lights off after quiet"
+description: "Turn hallway light off after no motion for 5 minutes while light is on."
+mode: restart
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.hallway_motion
+    to: "off"
+    for:
+      minutes: 5
+conditions:
+  - condition: state
+    entity_id: light.hallway
+    state: "on"
+actions:
+  - action: light.turn_off
+    target:
+      entity_id: light.hallway

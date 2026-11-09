@@ -1,0 +1,19 @@
+id: "r50_monthly_inventory"
+alias: "R50 Monthly automation inventory"
+description: "First-Sunday reminder to review the automations list and disable unused ones."
+mode: single
+triggers:
+  - trigger: time
+    at: "11:30:00"
+conditions:
+  - condition: time
+    weekday:
+      - sun
+  - condition: template
+    value_template: "{{ now().day <= 7 }}"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Automation inventory"
+      message: "Open Settings → Automations & scenes and disable or delete unused automations."
+      notification_id: automation_inventory

@@ -1,0 +1,35 @@
+# R06 Away after quiet period / Abwesend nach Ruhe
+# Pattern: last person leaves → wait 20 min → re-check persons + motion → set helper
+# mode restart: another leave event resets the quiet timer
+id: "r06_away_after_quiet"
+alias: "R06 Away after quiet period"
+description: >
+  When everyone is away, wait 20 minutes. If still empty and hallway motion
+  is off, turn on input_boolean.house_away.
+mode: restart
+triggers:
+  - trigger: state
+    entity_id:
+      - person.alex
+      - person.sam
+    to: "not_home"
+conditions:
+  - condition: state
+    entity_id:
+      - person.alex
+      - person.sam
+    state: "not_home"
+actions:
+  - delay:
+      minutes: 20
+  - condition: state
+    entity_id:
+      - person.alex
+      - person.sam
+    state: "not_home"
+  - condition: state
+    entity_id: binary_sensor.hallway_motion
+    state: "off"
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.house_away

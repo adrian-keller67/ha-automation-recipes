@@ -1,0 +1,18 @@
+# R03 Guest mode helper documentation automation (optional toast)
+# The real "recipe" is the input_boolean + conditions in other recipes.
+# This automation notifies when guest mode is enabled.
+id: "r03_guest_mode_enabled"
+alias: "R03 Guest mode enabled notice"
+description: "Confirms guest mode is on so presence automations stay paused."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: input_boolean.guest_mode
+    to: "on"
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Guest mode"
+      message: "Guest mode is on. Presence arrival/leave automations that check this helper will pause."
+      notification_id: guest_mode

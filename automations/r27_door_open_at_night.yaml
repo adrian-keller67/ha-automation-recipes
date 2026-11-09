@@ -1,0 +1,20 @@
+id: "r27_door_open_at_night"
+alias: "R27 Door open at night"
+description: "Alert if front door stays open during night hours."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.front_door
+    to: "on"
+    for:
+      minutes: 2
+conditions:
+  - condition: time
+    after: "23:00:00"
+    before: "06:00:00"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Door open"
+      message: "Front door has been open for 2 minutes at night."
+      notification_id: door_night

@@ -1,0 +1,29 @@
+id: "r14_sync_two_lights"
+alias: "R14 Sync two lights"
+description: "Mirror living room light on/off and brightness to a secondary lamp."
+mode: queued
+max: 10
+triggers:
+  - trigger: state
+    entity_id: light.living_room
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: light.living_room
+            state: "on"
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.living_room_lamp
+            data:
+              brightness: "{{ state_attr('light.living_room', 'brightness') | int(0) }}"
+      - conditions:
+          - condition: state
+            entity_id: light.living_room
+            state: "off"
+        sequence:
+          - action: light.turn_off
+            target:
+              entity_id: light.living_room_lamp

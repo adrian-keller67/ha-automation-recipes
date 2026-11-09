@@ -1,0 +1,17 @@
+id: "r41_esp_temp_alert"
+alias: "R41 ESPHome temperature alert"
+description: "Alert on ESPHome-exported temperature sensor crossing threshold."
+mode: single
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.esphome_shed_temperature
+    above: 40
+    for:
+      minutes: 5
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Shed temperature"
+      message: "ESPHome shed sensor reads {{ states('sensor.esphome_shed_temperature') }}°C."
+      notification_id: esp_shed_temp

@@ -1,0 +1,15 @@
+id: "r23_cheap_tariff_hint"
+alias: "R23 Cheap tariff hint"
+description: "Notify when electricity price sensor drops below a threshold."
+mode: single
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.electricity_price
+    below: 0.12
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Cheap electricity"
+      message: "Price is {{ states('sensor.electricity_price') }} — good window for flexible loads."
+      notification_id: cheap_tariff

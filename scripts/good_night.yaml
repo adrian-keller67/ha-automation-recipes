@@ -1,0 +1,23 @@
+good_night:
+  alias: "Good night"
+  description: "Lights off, lock door, set climate eco — started by R34."
+  mode: single
+  sequence:
+    - action: light.turn_off
+      target:
+        entity_id: all
+    - action: lock.lock
+      target:
+        entity_id: lock.front_door
+      continue_on_error: true
+    - action: climate.set_preset_mode
+      target:
+        entity_id: climate.living_room
+      data:
+        preset_mode: eco
+      continue_on_error: true
+    - action: persistent_notification.create
+      data:
+        title: "Good night"
+        message: "Good-night routine finished."
+        notification_id: good_night

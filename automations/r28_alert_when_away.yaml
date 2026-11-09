@@ -1,0 +1,25 @@
+id: "r28_alert_when_away"
+alias: "R28 Alert when away"
+description: "Notify if a door or window opens while the house is empty."
+mode: queued
+max: 10
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.front_door
+      - binary_sensor.back_door
+      - binary_sensor.living_room_window
+    to: "on"
+conditions:
+  - condition: state
+    entity_id: zone.home
+    state: "0"
+  - condition: state
+    entity_id: input_boolean.guest_mode
+    state: "off"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Away alert"
+      message: "{{ trigger.to_state.attributes.friendly_name | default(trigger.entity_id) }} opened while nobody is home."
+      notification_id: "away_{{ trigger.entity_id }}"

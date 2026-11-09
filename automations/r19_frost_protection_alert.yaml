@@ -1,0 +1,17 @@
+id: "r19_frost_protection_alert"
+alias: "R19 Frost protection alert"
+description: "Alert when a temperature sensor drops below frost threshold."
+mode: single
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.garage_temperature
+    below: 3
+    for:
+      minutes: 10
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Frost risk"
+      message: "Garage temperature is {{ states('sensor.garage_temperature') }}°C."
+      notification_id: frost_garage

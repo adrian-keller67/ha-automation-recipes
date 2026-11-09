@@ -1,0 +1,18 @@
+# Example Ch2: stable naming + notification helper pattern
+id: "ex_ch2_naming_notify"
+alias: "Example: Fridge door left open"
+description: "Uses clear entity ids; notify.persistent_notification is core."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.kitchen_fridge_door
+    to: "on"
+    for:
+      minutes: 3
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Kitchen"
+      message: "Fridge door has been open for 3 minutes."
+      notification_id: fridge_door_open

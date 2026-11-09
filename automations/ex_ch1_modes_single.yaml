@@ -1,0 +1,20 @@
+# Example Ch1: demonstrate mode single (default)
+id: "ex_ch1_modes_single"
+alias: "Example: Motion light single mode"
+description: "Shows mode single — overlapping runs are dropped."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.hallway_motion
+    from: "off"
+    to: "on"
+conditions: []
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.hallway
+  - delay:
+      minutes: 2
+  - action: light.turn_off
+    target:
+      entity_id: light.hallway

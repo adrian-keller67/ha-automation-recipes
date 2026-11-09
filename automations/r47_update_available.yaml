@@ -1,0 +1,18 @@
+id: "r47_update_available"
+alias: "R47 Update available"
+description: "Notify when a Home Assistant Core update entity turns on."
+mode: single
+triggers:
+  - trigger: state
+    entity_id: update.home_assistant_core_update
+    to: "on"
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Update available"
+      message: >-
+        {{ state_attr('update.home_assistant_core_update', 'title') |
+           default('Home Assistant Core') }} is available.
+        Read release notes before installing.
+      notification_id: ha_update
