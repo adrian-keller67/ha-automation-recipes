@@ -7,6 +7,13 @@
 **Target:** Home Assistant **2026.11**  
 **YAML:** modern `triggers` / `conditions` / `actions` (2024.10+); action calls use `action:` (2024.8+)
 
+## Get the book / Zum Buch
+
+- **English edition** (PDF + EPUB + all YAML files): [payhip.com/b/63gt9](https://payhip.com/b/63gt9) — €14.99
+- **Deutsche Ausgabe** (PDF + EPUB + alle YAML-Dateien): [payhip.com/b/9j6sp](https://payhip.com/b/9j6sp) — 14,99 €
+- Launch coupon **HASTART20**: 20% off until Nov 23, 2026
+- Kindle and paperback editions on Amazon follow (links coming soon)
+
 ## Layout
 
 ```
