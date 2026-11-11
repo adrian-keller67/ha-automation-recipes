@@ -12,7 +12,9 @@
 - **English edition** (PDF + EPUB + all YAML files): [payhip.com/b/63gt9](https://payhip.com/b/63gt9) — €14.99
 - **Deutsche Ausgabe** (PDF + EPUB + alle YAML-Dateien): [payhip.com/b/9j6sp](https://payhip.com/b/9j6sp) — 14,99 €
 - Launch coupon **HASTART20**: 20% off until Nov 23, 2026
-- Kindle and paperback editions on Amazon follow (links coming soon)
+- **English Kindle:** [Home Assistant Automation Recipes](https://www.amazon.com/dp/B0HR8QM6RQ)
+- **Deutscher Kindle:** [Home Assistant Praxis-Automationen](https://www.amazon.de/dp/B0HR8V5T57)
+- Paperback editions on Amazon follow (links coming soon)
 
 ## Layout
 
