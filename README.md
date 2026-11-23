@@ -14,7 +14,8 @@
 - Launch coupon **HASTART20**: 20% off until Nov 23, 2026
 - **English Kindle:** [Home Assistant Automation Recipes](https://www.amazon.com/dp/B0HR8QM6RQ)
 - **Deutscher Kindle:** [Home Assistant Praxis-Automationen](https://www.amazon.de/dp/B0HR8V5T57)
-- Paperback editions on Amazon follow (links coming soon)
+- **English Paperback:** [Home Assistant Automation Recipes](https://www.amazon.com/dp/B0HSLDFP3C)
+- **Deutsches Taschenbuch:** [Home Assistant Praxis-Automationen](https://www.amazon.de/dp/B0HSLJMJHJ)
 
 ## Layout
 
