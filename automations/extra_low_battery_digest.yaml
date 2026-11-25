@@ -1,0 +1,26 @@
+id: "extra_low_battery_digest"
+alias: "Low battery digest"
+description: "Daily list of every battery sensor below a threshold, found via device_class."
+mode: single
+variables:
+  threshold: 20
+  low_batteries: >-
+    {% set ns = namespace(items=[]) %}
+    {% for s in states.sensor | selectattr('attributes.device_class', 'eq', 'battery') %}
+      {% if s.state | is_number and s.state | float < threshold %}
+        {% set ns.items = ns.items + [s.name ~ ' (' ~ (s.state | int) ~ '%)'] %}
+      {% endif %}
+    {% endfor %}
+    {{ ns.items | sort | join(', ') }}
+triggers:
+  - trigger: time
+    at: "09:00:00"
+conditions:
+  - condition: template
+    value_template: "{{ low_batteries | length > 0 }}"
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "Batteries below {{ threshold }}%"
+      message: "{{ low_batteries }}"
+      notification_id: low_battery_digest

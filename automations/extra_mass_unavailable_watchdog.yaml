@@ -1,0 +1,18 @@
+id: "extra_mass_unavailable_watchdog"
+alias: "Mass-unavailable watchdog"
+description: "One alert when many entities go unavailable at once (dead Zigbee stick, MQTT broker, router)."
+mode: single
+triggers:
+  - trigger: template
+    # Change 10 to what is normal for your setup
+    value_template: "{{ states | selectattr('state', 'eq', 'unavailable') | list | count > 10 }}"
+    for: "00:05:00"
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "{{ states | selectattr('state', 'eq', 'unavailable') | list | count }} entities unavailable"
+      message: >-
+        Probably one shared cause (Zigbee/Z-Wave stick, MQTT broker, router).
+        First entities: {{ states | selectattr('state', 'eq', 'unavailable') | map(attribute='entity_id') | sort | list | batch(8) | first | join(', ') }}
+      notification_id: mass_unavailable
